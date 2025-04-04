@@ -1,9 +1,8 @@
-package autonoma.simulacionVehiculo.exceptions;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package autonoma.simulacionVehiculo.exceptions;
 
 /**
  * Modelo que permite representar una excepcion
@@ -11,11 +10,10 @@ package autonoma.simulacionVehiculo.exceptions;
  * @since 20250404
  * @version 1.0
  */
-public class VehiculoEncendidoException extends RuntimeException {
+public class VehiculoRecuperarControlException extends RuntimeException {
     
-    public VehiculoEncendidoException(){
-        super("El vehiculo ya esta encendido, no puede encenderlo nuevamente");
+    public VehiculoRecuperarControlException(){
+        super("El vehiculo ha recuperado el control debido a que se freno completamente");
     }
-    
     
 }
