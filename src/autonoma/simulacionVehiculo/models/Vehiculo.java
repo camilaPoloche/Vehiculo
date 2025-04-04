@@ -6,9 +6,14 @@ package autonoma.simulacionVehiculo.models;
 
 import autonoma.simulacionVehiculo.exceptions.AcelerarFrenarVehiculoApagadoException;
 import autonoma.simulacionVehiculo.exceptions.FrenarVehiculoDetenidoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoAccidentadoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoAceleradoAltamenteException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoApagadoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoDetenidoApagadoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoEncendidoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoBruscamenteException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoRecuperarControlException;
 
 /**
  * Modelo que permite representar un Vehiculo
@@ -35,6 +40,15 @@ public class Vehiculo {
     */
     private Llanta llantas;
     
+    /**
+    * vehiculo patinando
+    */
+    private boolean patinando =  false;
+    
+    /**
+    * vehiculo accidentado
+    */
+    private boolean accidentado = false;
     /**
      * Inicializa los atributos de la clase Boleta
      * @param velocidadActual
@@ -63,9 +77,22 @@ public class Vehiculo {
      * Apaga el vehiculo
      * @return String
     */  
-    public String apagar () throws VehiculoApagadoException{
+    public String apagar () throws VehiculoApagadoException, VehiculoAccidentadoException, VehiculoDetenidoApagadoException{
         if(this.estado == false){
             throw new VehiculoApagadoException();
+        }
+        
+        if(this.velocidadActual > 60){
+            this.accidentado = true;
+            throw new VehiculoAccidentadoException();
+        }
+        
+        if (this.accidentado == true){
+            this.estado = false;
+            this.velocidadActual = 0;
+            throw new VehiculoDetenidoApagadoException();
+            
+            
         }
         this.estado = false;
         return "Se ha apagado el vehiculo";
@@ -83,14 +110,21 @@ public class Vehiculo {
      * @param aceleracion
      * @return String
     */  
-    public String acelerar (float aceleracion) throws AcelerarFrenarVehiculoApagadoException{
+    public String acelerar (float aceleracion) throws AcelerarFrenarVehiculoApagadoException, VehiculoAceleradoAltamenteException{
         if(this.estado == false){
             throw new AcelerarFrenarVehiculoApagadoException();
         }
         if (verificarBrusquedad(aceleracion)){
-            
+            return "ha acelerado bruscamente"; 
         }
+        
         this.velocidadActual += aceleracion;
+        
+        if (this.velocidadActual > this.motor.getVelocidadMaxima()){
+            this.accidentado = true;
+            throw new VehiculoAceleradoAltamenteException();
+        }
+    
         return "Ha acelerado el vehiculo";
     }
     
@@ -99,7 +133,7 @@ public class Vehiculo {
      * @param frenado
      * @return String
     */  
-    public String frenar (float frenado)throws AcelerarFrenarVehiculoApagadoException, FrenarVehiculoDetenidoException, VehiculoPatinandoFrenadoBruscamenteException{
+    public String frenar (float frenado)throws AcelerarFrenarVehiculoApagadoException, FrenarVehiculoDetenidoException, VehiculoPatinandoFrenadoBruscamenteException, VehiculoPatinandoFrenadoException, VehiculoRecuperarControlException{
         if(this.estado == false){
             throw new AcelerarFrenarVehiculoApagadoException();
         }
@@ -110,10 +144,23 @@ public class Vehiculo {
         
         if (verificarBrusquedad(frenado)){
             if (this.velocidadActual > this.llantas.getLimiteVelocidadPermitido()){
-                throw new VehiculoPatinandoFrenadoBruscamenteException();
+                this.patinando = true;
+                throw new VehiculoPatinandoFrenadoBruscamenteException(); 
             }
         }
+        
+        if (frenado > this.velocidadActual){
+            this.patinando = true;
+            throw new VehiculoPatinandoFrenadoException();
+        }
         this.velocidadActual -= frenado;
+        
+        if(this.patinando == true && this.velocidadActual == 0){
+            throw new VehiculoRecuperarControlException();
+        }
+        
         return "Ha frenado el vehiculo";
     }
+    
+  
 }
