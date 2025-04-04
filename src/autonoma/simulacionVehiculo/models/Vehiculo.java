@@ -90,12 +90,4 @@ public class Vehiculo {
         this.velocidadActual -= frenado;
         return "Ha frenado el vehiculo";
     }
-    
-    /**
-     * Frena bruscamente el vehiculo
-     * @return String
-    */  
-    public String frenarBruscamente (){
-        return "";
-    }
 }
