@@ -3,6 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package autonoma.simulacionVehiculo.models;
+
+import autonoma.simulacionVehiculo.exceptions.AcelerarFrenarVehiculoApagadoException;
+import autonoma.simulacionVehiculo.exceptions.FrenarVehiculoDetenidoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoApagadoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoEncendidoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoBruscamenteException;
+
 /**
  * Modelo que permite representar un Vehiculo
  * @author Camila
@@ -44,7 +51,10 @@ public class Vehiculo {
      * Enciende el vehiculo
      * @return String
     */  
-    public String encender (){
+    public String encender () throws VehiculoEncendidoException{
+        if (this.estado == true){
+            throw new VehiculoEncendidoException();
+        }
         this.estado = true;
         return "Se ha encendido el vehiculo";
     }
@@ -53,7 +63,10 @@ public class Vehiculo {
      * Apaga el vehiculo
      * @return String
     */  
-    public String apagar (){
+    public String apagar () throws VehiculoApagadoException{
+        if(this.estado == false){
+            throw new VehiculoApagadoException();
+        }
         this.estado = false;
         return "Se ha apagado el vehiculo";
     }
@@ -70,7 +83,10 @@ public class Vehiculo {
      * @param aceleracion
      * @return String
     */  
-    public String acelerar (float aceleracion){
+    public String acelerar (float aceleracion) throws AcelerarFrenarVehiculoApagadoException{
+        if(this.estado == false){
+            throw new AcelerarFrenarVehiculoApagadoException();
+        }
         if (verificarBrusquedad(aceleracion)){
             
         }
@@ -83,9 +99,19 @@ public class Vehiculo {
      * @param frenado
      * @return String
     */  
-    public String frenar (float frenado){
+    public String frenar (float frenado)throws AcelerarFrenarVehiculoApagadoException, FrenarVehiculoDetenidoException, VehiculoPatinandoFrenadoBruscamenteException{
+        if(this.estado == false){
+            throw new AcelerarFrenarVehiculoApagadoException();
+        }
+        
+        if (this.velocidadActual == 0){
+            throw new FrenarVehiculoDetenidoException();
+        }
+        
         if (verificarBrusquedad(frenado)){
-            
+            if (this.velocidadActual > this.llantas.getLimiteVelocidadPermitido()){
+                throw new VehiculoPatinandoFrenadoBruscamenteException();
+            }
         }
         this.velocidadActual -= frenado;
         return "Ha frenado el vehiculo";

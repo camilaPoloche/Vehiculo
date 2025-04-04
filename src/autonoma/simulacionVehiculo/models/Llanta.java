@@ -18,14 +18,14 @@ public class Llanta {
     /**
     * Limite de velocidad permitido
     */
-    private String limiteVelocidadPermitido;
+    private float limiteVelocidadPermitido;
 
     /**
      * Inicializa los atributos de la clase Boleta
      * @param tipoLlanta
      * @param limiteVelocidadPermitido
     */
-    public Llanta(String tipoLlanta, String limiteVelocidadPermitido) {
+    public Llanta(String tipoLlanta, float limiteVelocidadPermitido) {
         this.tipoLlanta = tipoLlanta;
         this.limiteVelocidadPermitido = limiteVelocidadPermitido;
     }
@@ -50,7 +50,7 @@ public class Llanta {
      * Retornar el limite permitido
      * @return limitePermitido
     */
-    public String getLimiteVelocidadPermitido() {
+    public float getLimiteVelocidadPermitido() {
         return limiteVelocidadPermitido;
     }
 
@@ -58,7 +58,7 @@ public class Llanta {
      * Modifica el limite permitido
      * @param limiteVelocidadPermitido
     */
-    public void setLimitePermitido(String limiteVelocidadPermitido) {
+    public void setLimitePermitido(float limiteVelocidadPermitido) {
         this.limiteVelocidadPermitido = limiteVelocidadPermitido;
     } 
 }
