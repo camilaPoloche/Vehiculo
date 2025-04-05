@@ -4,16 +4,21 @@
  */
 package autonoma.simulacionVehiculo.views;
 
+import autonoma.simulacionVehiculo.exceptions.VehiculoAccidentadoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoApagadoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoDetenidoApagadoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoEncendidoException;
+import autonoma.simulacionVehiculo.models.Vehiculo;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author maria
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-
-    /**
-     * Creates new form VentanaPrincipal
-     */
-    public VentanaPrincipal() {
+    Vehiculo vehiculo;
+    public VentanaPrincipal(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
         initComponents();
     }
 
@@ -26,57 +31,231 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelPrincipal = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        btnFondoPantalla = new javax.swing.JPanel();
+        pantalla = new javax.swing.JPanel();
+        btnEncender = new javax.swing.JPanel();
+        txtOn = new javax.swing.JLabel();
+        btnApagar = new javax.swing.JPanel();
+        txtOf = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        imagenVehiculo = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        panelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
+
+        jLabel2.setText("Acelerar");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addContainerGap(11, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 4, Short.MAX_VALUE)
+                .addComponent(jLabel2))
+        );
+
+        panelPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 580, 60, 20));
+
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+
+        jLabel3.setText("Frenar");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addGap(0, 4, Short.MAX_VALUE))
+        );
+
+        panelPrincipal.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 610, 60, 20));
+
+        btnFondoPantalla.setBackground(new java.awt.Color(0, 0, 0));
+
+        btnEncender.setBackground(new java.awt.Color(102, 153, 255));
+        btnEncender.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEncenderMouseClicked(evt);
+            }
+        });
+
+        txtOn.setText("ON");
+
+        javax.swing.GroupLayout btnEncenderLayout = new javax.swing.GroupLayout(btnEncender);
+        btnEncender.setLayout(btnEncenderLayout);
+        btnEncenderLayout.setHorizontalGroup(
+            btnEncenderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnEncenderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtOn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btnEncenderLayout.setVerticalGroup(
+            btnEncenderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnEncenderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtOn, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnApagar.setBackground(new java.awt.Color(255, 153, 153));
+
+        txtOf.setText("OFF");
+        txtOf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtOfMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnApagarLayout = new javax.swing.GroupLayout(btnApagar);
+        btnApagar.setLayout(btnApagarLayout);
+        btnApagarLayout.setHorizontalGroup(
+            btnApagarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnApagarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtOf)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btnApagarLayout.setVerticalGroup(
+            btnApagarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnApagarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtOf, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel1.setText("Velocidad actual");
+
+        javax.swing.GroupLayout pantallaLayout = new javax.swing.GroupLayout(pantalla);
+        pantalla.setLayout(pantallaLayout);
+        pantallaLayout.setHorizontalGroup(
+            pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pantallaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnEncender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnApagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pantallaLayout.setVerticalGroup(
+            pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pantallaLayout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(btnEncender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout btnFondoPantallaLayout = new javax.swing.GroupLayout(btnFondoPantalla);
+        btnFondoPantalla.setLayout(btnFondoPantallaLayout);
+        btnFondoPantallaLayout.setHorizontalGroup(
+            btnFondoPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnFondoPantallaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pantalla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        btnFondoPantallaLayout.setVerticalGroup(
+            btnFondoPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pantalla, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        panelPrincipal.add(btnFondoPantalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 410, 100, 100));
+
+        imagenVehiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/simulacionVehiculo/images/interiorVehiculo.png"))); // NOI18N
+        imagenVehiculo.setText("jLabel1");
+        panelPrincipal.add(imagenVehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 581, 664));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 595, Short.MAX_VALUE)
+            .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 331, Short.MAX_VALUE)
+            .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void btnEncenderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEncenderMouseClicked
+        try{
+            String encender = this.vehiculo.encender();
+            JOptionPane.showInputDialog(encender);
+        }catch (VehiculoEncendidoException e){
+            JOptionPane.showInputDialog(e.getMessage());
         }
-        //</editor-fold>
+    }//GEN-LAST:event_btnEncenderMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaPrincipal().setVisible(true);
-            }
-        });
-    }
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        String aceleracionEntrada = JOptionPane.showInputDialog(null, "Ingrese cuanto desea acelera: ");
+        float aceleracion = Float.parseFloat(aceleracionEntrada);
+        this.vehiculo.acelerar(aceleracion);
+    }//GEN-LAST:event_jPanel1MouseClicked
+
+    private void txtOfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtOfMouseClicked
+        try{
+            String apagar = this.vehiculo.apagar();
+            JOptionPane.showInputDialog(this, apagar);
+        }catch (VehiculoApagadoException e){
+            JOptionPane.showInputDialog(this, e.getMessage());
+        }catch (VehiculoAccidentadoException e){
+            JOptionPane.showInputDialog(this, e.getMessage());
+        }catch (VehiculoDetenidoApagadoException e){
+            JOptionPane.showInputDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_txtOfMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel btnApagar;
+    private javax.swing.JPanel btnEncender;
+    private javax.swing.JPanel btnFondoPantalla;
+    private javax.swing.JLabel imagenVehiculo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel panelPrincipal;
+    private javax.swing.JPanel pantalla;
+    private javax.swing.JLabel txtOf;
+    private javax.swing.JLabel txtOn;
     // End of variables declaration//GEN-END:variables
 }
