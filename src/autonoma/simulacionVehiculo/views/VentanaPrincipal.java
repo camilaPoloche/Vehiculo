@@ -4,10 +4,16 @@
  */
 package autonoma.simulacionVehiculo.views;
 
+import autonoma.simulacionVehiculo.exceptions.AcelerarFrenarVehiculoApagadoException;
+import autonoma.simulacionVehiculo.exceptions.FrenarVehiculoDetenidoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoAccidentadoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoAceleradoAltamenteException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoApagadoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoDetenidoApagadoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoEncendidoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoBruscamenteException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoRecuperarControlException;
 import autonoma.simulacionVehiculo.models.Vehiculo;
 import javax.swing.JOptionPane;
 
@@ -32,9 +38,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         panelPrincipal = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        btnAcelerar = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        btnFrenar = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnFondoPantalla = new javax.swing.JPanel();
         pantalla = new javax.swing.JPanel();
@@ -49,54 +55,59 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         panelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAcelerar.setBackground(new java.awt.Color(204, 204, 204));
+        btnAcelerar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel1MouseClicked(evt);
+                btnAcelerarMouseClicked(evt);
             }
         });
 
         jLabel2.setText("Acelerar");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout btnAcelerarLayout = new javax.swing.GroupLayout(btnAcelerar);
+        btnAcelerar.setLayout(btnAcelerarLayout);
+        btnAcelerarLayout.setHorizontalGroup(
+            btnAcelerarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAcelerarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addContainerGap(11, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        btnAcelerarLayout.setVerticalGroup(
+            btnAcelerarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAcelerarLayout.createSequentialGroup()
                 .addGap(0, 4, Short.MAX_VALUE)
                 .addComponent(jLabel2))
         );
 
-        panelPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 580, 60, 20));
+        panelPrincipal.add(btnAcelerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 580, 60, 20));
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        btnFrenar.setBackground(new java.awt.Color(204, 204, 204));
+        btnFrenar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFrenarMouseClicked(evt);
+            }
+        });
 
         jLabel3.setText("Frenar");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout btnFrenarLayout = new javax.swing.GroupLayout(btnFrenar);
+        btnFrenar.setLayout(btnFrenarLayout);
+        btnFrenarLayout.setHorizontalGroup(
+            btnFrenarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnFrenarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        btnFrenarLayout.setVerticalGroup(
+            btnFrenarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnFrenarLayout.createSequentialGroup()
                 .addComponent(jLabel3)
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
-        panelPrincipal.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 610, 60, 20));
+        panelPrincipal.add(btnFrenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 610, 60, 20));
 
         btnFondoPantalla.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -223,11 +234,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEncenderMouseClicked
 
-    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+    private void btnAcelerarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMouseClicked
         String aceleracionEntrada = JOptionPane.showInputDialog(null, "Ingrese cuanto desea acelera: ");
         float aceleracion = Float.parseFloat(aceleracionEntrada);
-        this.vehiculo.acelerar(aceleracion);
-    }//GEN-LAST:event_jPanel1MouseClicked
+        
+        try{
+            this.vehiculo.acelerar(aceleracion);
+            
+        }catch (AcelerarFrenarVehiculoApagadoException e){
+            JOptionPane.showInputDialog(this, e.getMessage());   
+        }catch (VehiculoAceleradoAltamenteException e){
+            JOptionPane.showInputDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_btnAcelerarMouseClicked
 
     private void txtOfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtOfMouseClicked
         try{
@@ -242,17 +261,39 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtOfMouseClicked
 
+    private void btnFrenarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenarMouseClicked
+        String frenadoEntrada = JOptionPane.showInputDialog(null, "Ingrese cuanto desea frenar: ");
+        float frenado = Float.parseFloat(frenadoEntrada);
+        
+        try{
+            this.vehiculo.frenar(frenado);
+            
+        }catch(AcelerarFrenarVehiculoApagadoException e){
+            JOptionPane.showInputDialog(this, e.getMessage());
+        }catch(FrenarVehiculoDetenidoException e){
+            JOptionPane.showInputDialog(this, e.getMessage());
+        }catch(VehiculoPatinandoFrenadoBruscamenteException e){
+            JOptionPane.showInputDialog(this, e.getMessage());
+        }catch(VehiculoPatinandoFrenadoException e){
+            JOptionPane.showInputDialog(this, e.getMessage()); 
+        }catch(VehiculoRecuperarControlException e){
+            JOptionPane.showInputDialog(this, e.getMessage());
+        }
+            
+            
+    }//GEN-LAST:event_btnFrenarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel btnAcelerar;
     private javax.swing.JPanel btnApagar;
     private javax.swing.JPanel btnEncender;
     private javax.swing.JPanel btnFondoPantalla;
+    private javax.swing.JPanel btnFrenar;
     private javax.swing.JLabel imagenVehiculo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel pantalla;
     private javax.swing.JLabel txtOf;
