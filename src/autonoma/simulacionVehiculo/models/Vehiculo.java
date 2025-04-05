@@ -91,13 +91,17 @@ public class Vehiculo {
             this.estado = false;
             this.velocidadActual = 0;
             throw new VehiculoDetenidoApagadoException();
-            
-            
         }
+        
         this.estado = false;
         return "Se ha apagado el vehiculo";
     }
     
+    /**
+     * Verifica la magnitud del cambio de Velocidad
+     * @param cambioVelocidad
+     * @return boolean
+    */ 
     public boolean verificarBrusquedad (float cambioVelocidad){
         if (cambioVelocidad > 30){
             return true;
@@ -114,6 +118,7 @@ public class Vehiculo {
         if(this.estado == false){
             throw new AcelerarFrenarVehiculoApagadoException();
         }
+        
         if (verificarBrusquedad(aceleracion)){
             return "ha acelerado bruscamente"; 
         }
@@ -161,6 +166,4 @@ public class Vehiculo {
         
         return "Ha frenado el vehiculo";
     }
-    
-  
 }
