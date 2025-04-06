@@ -17,13 +17,23 @@ import autonoma.simulacionVehiculo.models.Taller;
 import autonoma.simulacionVehiculo.models.Vehiculo;
 import java.io.IOException;
 import javax.swing.JOptionPane;
-
 /**
- *
- * @author maria
- */
+ * Modelo que permite representar la VentanaPrincipal
+ * @author Mariana
+ * @since 20250405
+ * @version 1.0
+*/
 public class VentanaPrincipal extends javax.swing.JFrame {
+    //Atributos
+    /**
+    * Instancia de taller
+    */
     Taller taller;
+    
+    /**
+     * Inicializa los atributos de la VentanaPrincipal
+     * @param taller
+    */
     public VentanaPrincipal(Taller taller) {
         this.taller = taller;
         initComponents();
@@ -315,7 +325,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Evento para encender el vehiculo
+    */
     private void btnEncenderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEncenderMouseClicked
         try{
             String encender = this.taller.getVehiculo().encender();
@@ -324,7 +336,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnEncenderMouseClicked
-
+    /**
+     * Evento para acelerar el vehiculo
+    */
     private void btnAcelerarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMouseClicked
         try{
             if (this.taller.getVehiculo().isEstado() == false){
@@ -334,18 +348,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             float aceleracion = Float.parseFloat(aceleracionEntrada);
             String mensaje = this.taller.getVehiculo().acelerar(aceleracion);
             JOptionPane.showMessageDialog(null, mensaje);  
-            this.txtVelocidadActual.setText(String.valueOf(this.taller.getVehiculo().getVelocidadActual()));
         }catch (AcelerarFrenarVehiculoApagadoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());   
         }catch (VehiculoAceleradoAltamenteException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
+        }finally {
+            this.txtVelocidadActual.setText(String.valueOf(this.taller.getVehiculo().getVelocidadActual()));
         }
     }//GEN-LAST:event_btnAcelerarMouseClicked
 
     private void txtOfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtOfMouseClicked
   
     }//GEN-LAST:event_txtOfMouseClicked
-
+    /**
+     * Evento para frenar el vehiculo
+    */
     private void btnFrenarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenarMouseClicked
         try{
             if (this.taller.getVehiculo().isEstado() == false){
@@ -359,9 +376,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             String frenadoEntrada = JOptionPane.showInputDialog(null, "Ingrese cuanto desea frenar: ");
             float frenado = Float.parseFloat(frenadoEntrada);
             String mensaje = this.taller.getVehiculo().frenar(frenado);
-            JOptionPane.showMessageDialog(null, mensaje);  
-            this.txtVelocidadActual.setText(String.valueOf(this.taller.getVehiculo().getVelocidadActual()));
-            
+            JOptionPane.showMessageDialog(null, mensaje); 
         }catch(AcelerarFrenarVehiculoApagadoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }catch(FrenarVehiculoDetenidoException e){
@@ -372,18 +387,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage()); 
         }catch(VehiculoRecuperarControlException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
-        }       
+        }finally {
+          this.txtVelocidadActual.setText(String.valueOf(this.taller.getVehiculo().getVelocidadActual()));
+        }
     }//GEN-LAST:event_btnFrenarMouseClicked
-
+    /**
+     * Evento para apagar el vehiculo
+    */
     private void btnApagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnApagarMouseClicked
         try{
             String apagar = this.taller.getVehiculo().apagar();
-            this.txtVelocidadActual.setText(String.valueOf(this.taller.getVehiculo().getVelocidadActual()));
             JOptionPane.showMessageDialog(null, apagar);
         }catch (VehiculoApagadoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }catch (VehiculoAccidentadoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
+        }finally{
+            this.txtVelocidadActual.setText(String.valueOf(this.taller.getVehiculo().getVelocidadActual()));
         }
     }//GEN-LAST:event_btnApagarMouseClicked
 
@@ -394,11 +414,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void imagenVehiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenVehiculoMouseClicked
         
     }//GEN-LAST:event_imagenVehiculoMouseClicked
-
+    /**
+     * Mostrar las posibles configuraciones del vehiculo
+    */
     private void btnMostrarConfiguracionesPosiblesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMostrarConfiguracionesPosiblesMouseClicked
         JOptionPane.showMessageDialog(null, this.taller.mostrarPosiblesConfiguraciones() );
     }//GEN-LAST:event_btnMostrarConfiguracionesPosiblesMouseClicked
-
+    /**
+     * Mostrar la configuracion actual
+    */
     private void btnVerConfiguracionActualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerConfiguracionActualMouseClicked
         try {
             JOptionPane.showMessageDialog(null, this.taller.mostrarConfiguracionActual());
@@ -406,7 +430,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             JOptionPane.showConfirmDialog(null, "Error al iniciar el programa, no se puede acceder al archivo configurarVehiculo.txt", "Error", JOptionPane.ERROR);
         }
     }//GEN-LAST:event_btnVerConfiguracionActualMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPTitulo;

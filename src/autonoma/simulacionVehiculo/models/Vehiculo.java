@@ -83,6 +83,8 @@ public class Vehiculo {
         
         if(this.velocidadActual > 60){
             this.accidentado = true;
+            this.velocidadActual = 0;
+            this.estado = false; 
             throw new VehiculoAccidentadoException();
         }
         
@@ -120,10 +122,9 @@ public class Vehiculo {
         if (verificarBrusquedad(aceleracion)){
             if (this.velocidadActual > this.motor.getVelocidadMaxima()){
                 this.accidentado = true;
-                this.estado = false;
                 this.velocidadActual = 0;
+                this.estado = false;
                 throw new VehiculoAceleradoAltamenteException();
-                
             }
             return "Ha acelerado bruscamente"; 
         }
@@ -149,30 +150,22 @@ public class Vehiculo {
         if (this.velocidadActual == 0) {
             throw new FrenarVehiculoDetenidoException();
         }
-
-        boolean huboPatinaje = false;
-
-        if (frenado > this.velocidadActual) {
+        
+        if (frenado > this.velocidadActual){
             this.patinando = true;
-            this.velocidadActual = 0;
-            huboPatinaje = true;
+            throw new VehiculoPatinandoFrenadoException();
         } else {
             this.velocidadActual -= frenado;
-
-            if (verificarBrusquedad(frenado) && this.velocidadActual > this.llantas.getLimiteVelocidadPermitido()) {
+            if (verificarBrusquedad(frenado) && this.velocidadActual > this.llantas.getLimiteVelocidadPermitido()){
                 this.patinando = true;
-                throw new VehiculoPatinandoFrenadoBruscamenteException();
+                throw new VehiculoPatinandoFrenadoBruscamenteException(); 
             }
         }
 
-        if (this.patinando && this.velocidadActual == 0) {
+        if(this.patinando && this.velocidadActual == 0){
             throw new VehiculoRecuperarControlException();
         }
-
-        if (huboPatinaje) {
-            throw new VehiculoPatinandoFrenadoException();
-        }
-
+        
         return "Ha frenado el vehiculo";
     }
 
