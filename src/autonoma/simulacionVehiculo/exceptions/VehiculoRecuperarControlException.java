@@ -12,6 +12,9 @@ package autonoma.simulacionVehiculo.exceptions;
  */
 public class VehiculoRecuperarControlException extends RuntimeException {
     
+    /**
+    * Excepcion que se lanza al recuperar el control de un vehiculo
+    */
     public VehiculoRecuperarControlException(){
         super("El vehiculo ha recuperado el control debido a que se freno completamente");
     }

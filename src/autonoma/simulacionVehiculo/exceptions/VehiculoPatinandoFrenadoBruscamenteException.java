@@ -12,6 +12,9 @@ package autonoma.simulacionVehiculo.exceptions;
  */
 public class VehiculoPatinandoFrenadoBruscamenteException extends RuntimeException {
     
+    /**
+    * Excepcion que se lanza cuando un vehiculo patina por frenado bruscamente
+    */
     public VehiculoPatinandoFrenadoBruscamenteException (){
         super("El carro se encuentra patinando por el frenado bruscamente");
     }

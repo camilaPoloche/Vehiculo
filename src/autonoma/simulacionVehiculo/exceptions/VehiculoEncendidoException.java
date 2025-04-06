@@ -13,6 +13,9 @@ package autonoma.simulacionVehiculo.exceptions;
  */
 public class VehiculoEncendidoException extends RuntimeException {
     
+    /**
+    * Excepcion que se lanza al encender un vehículo que ya esta encendido
+    */
     public VehiculoEncendidoException(){
         super("El vehiculo ya esta encendido, no puede encenderlo nuevamente");
     }

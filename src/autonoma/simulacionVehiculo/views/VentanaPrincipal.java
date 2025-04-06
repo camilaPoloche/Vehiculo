@@ -16,6 +16,7 @@ import autonoma.simulacionVehiculo.exceptions.VehiculoRecuperarControlException;
 import autonoma.simulacionVehiculo.models.Taller;
 import autonoma.simulacionVehiculo.models.Vehiculo;
 import java.io.IOException;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 /**
  * Modelo que permite representar la VentanaPrincipal
@@ -38,6 +39,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.taller = taller;
         initComponents();
         this.setLocationRelativeTo(null);
+        try{
+            this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/simulacionVehiculo/images/logoApp.png")).getImage());
+        }catch (Exception e){
+            
+        }
     }
 
     /**
@@ -62,6 +68,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         txtOf = new javax.swing.JLabel();
         txtVelocidadActual = new javax.swing.JLabel();
         JPTitulo = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         btnMostrarConfiguracionesPosibles = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         btnVerConfiguracionActual = new javax.swing.JPanel();
@@ -72,13 +79,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         panelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnAcelerar.setBackground(new java.awt.Color(204, 204, 204));
+        btnAcelerar.setBackground(new java.awt.Color(228, 255, 228));
         btnAcelerar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAcelerarMouseClicked(evt);
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("SimSun-ExtG", 1, 12)); // NOI18N
         jLabel2.setText("Acelerar");
 
         javax.swing.GroupLayout btnAcelerarLayout = new javax.swing.GroupLayout(btnAcelerar);
@@ -86,26 +94,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnAcelerarLayout.setHorizontalGroup(
             btnAcelerarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnAcelerarLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel2)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         btnAcelerarLayout.setVerticalGroup(
             btnAcelerarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAcelerarLayout.createSequentialGroup()
-                .addGap(0, 4, Short.MAX_VALUE)
-                .addComponent(jLabel2))
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
         );
 
-        panelPrincipal.add(btnAcelerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 580, 60, 20));
+        panelPrincipal.add(btnAcelerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 580, 80, 20));
 
-        btnFrenar.setBackground(new java.awt.Color(204, 204, 204));
+        btnFrenar.setBackground(new java.awt.Color(204, 244, 255));
         btnFrenar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnFrenarMouseClicked(evt);
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("SimSun-ExtG", 1, 12)); // NOI18N
         jLabel3.setText("Frenar");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -118,28 +125,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnFrenarLayout.setHorizontalGroup(
             btnFrenarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnFrenarLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel3)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         btnFrenarLayout.setVerticalGroup(
             btnFrenarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnFrenarLayout.createSequentialGroup()
                 .addComponent(jLabel3)
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 7, Short.MAX_VALUE))
         );
 
-        panelPrincipal.add(btnFrenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 610, 60, 20));
+        panelPrincipal.add(btnFrenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 610, 70, 20));
 
         btnFondoPantalla.setBackground(new java.awt.Color(0, 0, 0));
 
         btnEncender.setBackground(new java.awt.Color(102, 153, 255));
+        btnEncender.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createCompoundBorder(), javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createCompoundBorder())));
         btnEncender.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnEncenderMouseClicked(evt);
             }
         });
 
+        txtOn.setFont(new java.awt.Font("Tempus Sans ITC", 1, 12)); // NOI18N
         txtOn.setText("ON");
 
         javax.swing.GroupLayout btnEncenderLayout = new javax.swing.GroupLayout(btnEncender);
@@ -153,10 +162,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
         btnEncenderLayout.setVerticalGroup(
             btnEncenderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnEncenderLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtOn, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(txtOn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         btnApagar.setBackground(new java.awt.Color(255, 153, 153));
@@ -166,6 +172,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        txtOf.setFont(new java.awt.Font("Tempus Sans ITC", 1, 12)); // NOI18N
         txtOf.setText("OFF");
         txtOf.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -180,17 +187,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(btnApagarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtOf)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         btnApagarLayout.setVerticalGroup(
             btnApagarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnApagarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtOf, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(txtOf, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
-        txtVelocidadActual.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        txtVelocidadActual.setFont(new java.awt.Font("Yu Gothic UI", 3, 10)); // NOI18N
         txtVelocidadActual.setText("Velocidad actual");
 
         javax.swing.GroupLayout pantallaLayout = new javax.swing.GroupLayout(pantalla);
@@ -200,109 +204,123 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(pantallaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnEncender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnApagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(txtVelocidadActual))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pantallaLayout.createSequentialGroup()
+                        .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnApagar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEncender, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtVelocidadActual, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pantallaLayout.setVerticalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pantallaLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtVelocidadActual)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(btnEncender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout btnFondoPantallaLayout = new javax.swing.GroupLayout(btnFondoPantalla);
         btnFondoPantalla.setLayout(btnFondoPantallaLayout);
         btnFondoPantallaLayout.setHorizontalGroup(
             btnFondoPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnFondoPantallaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pantalla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(pantalla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         btnFondoPantallaLayout.setVerticalGroup(
             btnFondoPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pantalla, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(btnFondoPantallaLayout.createSequentialGroup()
+                .addComponent(pantalla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         panelPrincipal.add(btnFondoPantalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 410, 100, 100));
 
         JPTitulo.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel1.setFont(new java.awt.Font("SimSun", 1, 36)); // NOI18N
+        jLabel1.setText("Simulador de un vehiculo");
+
         javax.swing.GroupLayout JPTituloLayout = new javax.swing.GroupLayout(JPTitulo);
         JPTitulo.setLayout(JPTituloLayout);
         JPTituloLayout.setHorizontalGroup(
             JPTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPTituloLayout.createSequentialGroup()
+                .addContainerGap(55, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52))
         );
         JPTituloLayout.setVerticalGroup(
             JPTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(JPTituloLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        panelPrincipal.add(JPTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 580, -1));
+        panelPrincipal.add(JPTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 580, 70));
 
-        btnMostrarConfiguracionesPosibles.setBackground(new java.awt.Color(255, 255, 255));
+        btnMostrarConfiguracionesPosibles.setBackground(new java.awt.Color(152, 212, 252));
         btnMostrarConfiguracionesPosibles.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMostrarConfiguracionesPosiblesMouseClicked(evt);
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("SimSun", 1, 12)); // NOI18N
         jLabel6.setText("Mostrar configuraciones");
 
         javax.swing.GroupLayout btnMostrarConfiguracionesPosiblesLayout = new javax.swing.GroupLayout(btnMostrarConfiguracionesPosibles);
         btnMostrarConfiguracionesPosibles.setLayout(btnMostrarConfiguracionesPosiblesLayout);
         btnMostrarConfiguracionesPosiblesLayout.setHorizontalGroup(
             btnMostrarConfiguracionesPosiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnMostrarConfiguracionesPosiblesLayout.createSequentialGroup()
-                .addGap(0, 14, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(btnMostrarConfiguracionesPosiblesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         btnMostrarConfiguracionesPosiblesLayout.setVerticalGroup(
             btnMostrarConfiguracionesPosiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnMostrarConfiguracionesPosiblesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        panelPrincipal.add(btnMostrarConfiguracionesPosibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 300, 160, 30));
+        panelPrincipal.add(btnMostrarConfiguracionesPosibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, 180, 30));
 
-        btnVerConfiguracionActual.setBackground(new java.awt.Color(255, 255, 255));
+        btnVerConfiguracionActual.setBackground(new java.awt.Color(204, 204, 204));
         btnVerConfiguracionActual.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnVerConfiguracionActualMouseClicked(evt);
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("SimSun", 1, 12)); // NOI18N
         jLabel5.setText("ver configuracion actual");
 
         javax.swing.GroupLayout btnVerConfiguracionActualLayout = new javax.swing.GroupLayout(btnVerConfiguracionActual);
         btnVerConfiguracionActual.setLayout(btnVerConfiguracionActualLayout);
         btnVerConfiguracionActualLayout.setHorizontalGroup(
             btnVerConfiguracionActualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnVerConfiguracionActualLayout.createSequentialGroup()
-                .addGap(0, 14, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(btnVerConfiguracionActualLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
         );
         btnVerConfiguracionActualLayout.setVerticalGroup(
             btnVerConfiguracionActualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnVerConfiguracionActualLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        panelPrincipal.add(btnVerConfiguracionActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 340, -1, 30));
+        panelPrincipal.add(btnVerConfiguracionActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, 180, 30));
 
+        imagenVehiculo.setBackground(new java.awt.Color(255, 202, 202));
         imagenVehiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/simulacionVehiculo/images/interiorVehiculo.png"))); // NOI18N
         imagenVehiculo.setText("jLabel1");
         imagenVehiculo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -441,6 +459,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel btnMostrarConfiguracionesPosibles;
     private javax.swing.JPanel btnVerConfiguracionActual;
     private javax.swing.JLabel imagenVehiculo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;

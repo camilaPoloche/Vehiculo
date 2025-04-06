@@ -12,6 +12,9 @@ package autonoma.simulacionVehiculo.exceptions;
  */
 public class VehiculoApagadoException extends RuntimeException  {
     
+    /**
+    * Excepcion que se lanza al apagar un vehiculo que ya esta apagado
+    */
     public VehiculoApagadoException(){
         super("El vehiculo ya esta apagado,  no puede apagarlo nuevamente");
     }

@@ -12,6 +12,10 @@ package autonoma.simulacionVehiculo.exceptions;
  */
 public class AcelerarFrenarVehiculoApagadoException extends RuntimeException{
     
+    /**
+    * Excepcion que se lanza al acelerar o frenar un vehículo apagado
+    */
+
     public AcelerarFrenarVehiculoApagadoException(){
         super("El vehiculo esta apagado, no puede acelerar ni frenar");
     }

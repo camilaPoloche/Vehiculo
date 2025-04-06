@@ -12,6 +12,9 @@ package autonoma.simulacionVehiculo.exceptions;
  */
 public class FrenarVehiculoDetenidoException extends RuntimeException {
     
+    /**
+    * Excepcion que se lanza al frenar un vehiculo detenido
+    */
     public FrenarVehiculoDetenidoException (){
         super("El vehiculo esta detenido no es posible frenar mas");
     }
