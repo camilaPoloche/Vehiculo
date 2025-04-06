@@ -13,7 +13,6 @@ package autonoma.simulacionVehiculo.exceptions;
 public class VehiculoAceleradoAltamenteException extends RuntimeException {
     
     public VehiculoAceleradoAltamenteException (){
-        super("El vehiculo se ha accidentado por superar la aceleracion maxima");
+        super("El vehiculo se ha accidentado por superar la velocidad maxima, se ha apagado y detenido");
     }
-    
 }

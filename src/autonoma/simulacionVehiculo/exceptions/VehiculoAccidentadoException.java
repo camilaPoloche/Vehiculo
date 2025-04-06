@@ -11,10 +11,7 @@ package autonoma.simulacionVehiculo.exceptions;
  * @version 1.0
  */
 public class VehiculoAccidentadoException extends RuntimeException {
-    
     public VehiculoAccidentadoException (){
-        super("El vehiculo se ha accidentado ");
+        super("El vehiculo se ha accidentado ya que se apago e iba a una velocidad mayor a 60Km/h");
     }
-    
-    
 }

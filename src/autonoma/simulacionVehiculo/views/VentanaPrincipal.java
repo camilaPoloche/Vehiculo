@@ -9,7 +9,6 @@ import autonoma.simulacionVehiculo.exceptions.FrenarVehiculoDetenidoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoAccidentadoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoAceleradoAltamenteException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoApagadoException;
-import autonoma.simulacionVehiculo.exceptions.VehiculoDetenidoApagadoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoEncendidoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoBruscamenteException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoException;
@@ -24,11 +23,9 @@ import javax.swing.JOptionPane;
  * @author maria
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-    Vehiculo vehiculo;
     Taller taller;
-    public VentanaPrincipal(Vehiculo vehiculo, Taller taller) {
+    public VentanaPrincipal(Taller taller) {
         this.taller = taller;
-        this.vehiculo = vehiculo;
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -321,7 +318,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void btnEncenderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEncenderMouseClicked
         try{
-            String encender = this.vehiculo.encender();
+            String encender = this.taller.getVehiculo().encender();
             JOptionPane.showMessageDialog(null, encender);
         }catch (VehiculoEncendidoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -329,12 +326,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEncenderMouseClicked
 
     private void btnAcelerarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMouseClicked
-        String aceleracionEntrada = JOptionPane.showInputDialog(null, "Ingrese cuanto desea acelera: ");
-        float aceleracion = Float.parseFloat(aceleracionEntrada);
-        
         try{
-            this.vehiculo.acelerar(aceleracion);
-            this.txtVelocidadActual.setText(String.valueOf(this.vehiculo.getVelocidadActual()));
+            if (this.taller.getVehiculo().isEstado() == false){
+                throw new AcelerarFrenarVehiculoApagadoException();
+            }
+            String aceleracionEntrada = JOptionPane.showInputDialog(null, "Ingrese cuanto desea acelera: ");
+            float aceleracion = Float.parseFloat(aceleracionEntrada);
+            String mensaje = this.taller.getVehiculo().acelerar(aceleracion);
+            JOptionPane.showMessageDialog(null, mensaje);  
+            this.txtVelocidadActual.setText(String.valueOf(this.taller.getVehiculo().getVelocidadActual()));
         }catch (AcelerarFrenarVehiculoApagadoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());   
         }catch (VehiculoAceleradoAltamenteException e){
@@ -347,12 +347,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtOfMouseClicked
 
     private void btnFrenarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenarMouseClicked
-        String frenadoEntrada = JOptionPane.showInputDialog(null, "Ingrese cuanto desea frenar: ");
-        float frenado = Float.parseFloat(frenadoEntrada);
-        
         try{
-            this.vehiculo.frenar(frenado);
-            this.txtVelocidadActual.setText(String.valueOf(this.vehiculo.getVelocidadActual()));
+            if (this.taller.getVehiculo().isEstado() == false){
+                throw new AcelerarFrenarVehiculoApagadoException();
+            }
+            
+            if(this.taller.getVehiculo().getVelocidadActual() == 0){
+                throw new FrenarVehiculoDetenidoException();
+            }
+            
+            String frenadoEntrada = JOptionPane.showInputDialog(null, "Ingrese cuanto desea frenar: ");
+            float frenado = Float.parseFloat(frenadoEntrada);
+            String mensaje = this.taller.getVehiculo().frenar(frenado);
+            JOptionPane.showMessageDialog(null, mensaje);  
+            this.txtVelocidadActual.setText(String.valueOf(this.taller.getVehiculo().getVelocidadActual()));
+            
         }catch(AcelerarFrenarVehiculoApagadoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }catch(FrenarVehiculoDetenidoException e){
@@ -368,32 +377,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void btnApagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnApagarMouseClicked
         try{
-            String apagar = this.vehiculo.apagar();
+            String apagar = this.taller.getVehiculo().apagar();
+            this.txtVelocidadActual.setText(String.valueOf(this.taller.getVehiculo().getVelocidadActual()));
             JOptionPane.showMessageDialog(null, apagar);
         }catch (VehiculoApagadoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }catch (VehiculoAccidentadoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
-        }catch (VehiculoDetenidoApagadoException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnApagarMouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void imagenVehiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenVehiculoMouseClicked
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_imagenVehiculoMouseClicked
 
     private void btnMostrarConfiguracionesPosiblesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMostrarConfiguracionesPosiblesMouseClicked
-
-            JOptionPane.showMessageDialog(null, this.taller.mostrarPosiblesConfiguraciones() );
+        JOptionPane.showMessageDialog(null, this.taller.mostrarPosiblesConfiguraciones() );
     }//GEN-LAST:event_btnMostrarConfiguracionesPosiblesMouseClicked
 
     private void btnVerConfiguracionActualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerConfiguracionActualMouseClicked
-        
         try {
             JOptionPane.showMessageDialog(null, this.taller.mostrarConfiguracionActual());
         }catch(IOException ex){

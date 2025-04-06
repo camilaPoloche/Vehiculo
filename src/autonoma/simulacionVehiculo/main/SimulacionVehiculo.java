@@ -17,15 +17,16 @@ import javax.swing.JOptionPane;
  * @since 20250329
  * @version 1.0
  */
+
 public class SimulacionVehiculo {
     public static void main(String[] args) {
         Lector lector = new Lector();
         Vehiculo vehiculo = null;
         try {
-            Taller taller = new Taller(lector, null);
+            Taller taller = new Taller(lector);
             vehiculo = taller.configurarVehiculo();
             taller.setVehiculo(vehiculo); 
-            VentanaPrincipal ventana = new VentanaPrincipal(vehiculo, taller);
+            VentanaPrincipal ventana = new VentanaPrincipal(taller);
             ventana.setVisible(true);
         } catch (IOException ex) {
             System.out.println("No encontramos el archivo");
