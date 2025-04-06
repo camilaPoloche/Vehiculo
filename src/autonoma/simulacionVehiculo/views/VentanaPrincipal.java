@@ -13,6 +13,7 @@ import autonoma.simulacionVehiculo.exceptions.VehiculoEncendidoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoBruscamenteException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoRecuperarControlException;
+import autonoma.simulacionVehiculo.models.Sonido;
 import autonoma.simulacionVehiculo.models.Taller;
 import autonoma.simulacionVehiculo.models.Vehiculo;
 import java.io.IOException;
@@ -30,6 +31,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     * Instancia de taller
     */
     Taller taller;
+    /**
+    * Instancia de ventanaEncendido
+    */
+    Encender encender;
+    /**
+    * Instancia de Sonido
+    */
+    Sonido sonido;
+    /**
+    * Instancia de Accidente
+    */
+    Accidente accidente;
     
     /**
      * Inicializa los atributos de la VentanaPrincipal
@@ -37,6 +50,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     */
     public VentanaPrincipal(Taller taller) {
         this.taller = taller;
+        this.sonido = new Sonido();
         initComponents();
         this.setLocationRelativeTo(null);
         try{
@@ -73,6 +87,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         btnVerConfiguracionActual = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        btnSalirVehiculo = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
         imagenVehiculo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -300,7 +316,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("SimSun", 1, 12)); // NOI18N
-        jLabel5.setText("ver configuracion actual");
+        jLabel5.setText("Ver configuracion actual");
 
         javax.swing.GroupLayout btnVerConfiguracionActualLayout = new javax.swing.GroupLayout(btnVerConfiguracionActual);
         btnVerConfiguracionActual.setLayout(btnVerConfiguracionActualLayout);
@@ -319,6 +335,40 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
 
         panelPrincipal.add(btnVerConfiguracionActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, 180, 30));
+
+        btnSalirVehiculo.setBackground(new java.awt.Color(152, 212, 252));
+        btnSalirVehiculo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSalirVehiculoMouseClicked(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("SimSun", 1, 12)); // NOI18N
+        jLabel7.setText("Salir del vehiculo");
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnSalirVehiculoLayout = new javax.swing.GroupLayout(btnSalirVehiculo);
+        btnSalirVehiculo.setLayout(btnSalirVehiculoLayout);
+        btnSalirVehiculoLayout.setHorizontalGroup(
+            btnSalirVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnSalirVehiculoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btnSalirVehiculoLayout.setVerticalGroup(
+            btnSalirVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnSalirVehiculoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addContainerGap(9, Short.MAX_VALUE))
+        );
+
+        panelPrincipal.add(btnSalirVehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 610, 130, -1));
 
         imagenVehiculo.setBackground(new java.awt.Color(255, 202, 202));
         imagenVehiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/simulacionVehiculo/images/interiorVehiculo.png"))); // NOI18N
@@ -349,6 +399,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnEncenderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEncenderMouseClicked
         try{
             String encender = this.taller.getVehiculo().encender();
+            this.encender = new Encender(this, true);
+            this.sonido.reproducir("encender.wav");
+            this.encender.setVisible(true);
             JOptionPane.showMessageDialog(null, encender);
         }catch (VehiculoEncendidoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -364,11 +417,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             String aceleracionEntrada = JOptionPane.showInputDialog(null, "Ingrese cuanto desea acelera: ");
             float aceleracion = Float.parseFloat(aceleracionEntrada);
+            this.sonido.reproducir("acelerar.wav");
             String mensaje = this.taller.getVehiculo().acelerar(aceleracion);
             JOptionPane.showMessageDialog(null, mensaje);  
         }catch (AcelerarFrenarVehiculoApagadoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());   
         }catch (VehiculoAceleradoAltamenteException e){
+            this.accidente = new Accidente (this, true);
+            this.accidente.setVisible(true);
             JOptionPane.showMessageDialog(null, e.getMessage());
         }finally {
             this.txtVelocidadActual.setText(String.valueOf(this.taller.getVehiculo().getVelocidadActual()));
@@ -393,6 +449,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             
             String frenadoEntrada = JOptionPane.showInputDialog(null, "Ingrese cuanto desea frenar: ");
             float frenado = Float.parseFloat(frenadoEntrada);
+            this.sonido.reproducir("frenar.wav");
             String mensaje = this.taller.getVehiculo().frenar(frenado);
             JOptionPane.showMessageDialog(null, mensaje); 
         }catch(AcelerarFrenarVehiculoApagadoException e){
@@ -400,13 +457,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }catch(FrenarVehiculoDetenidoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }catch(VehiculoPatinandoFrenadoBruscamenteException e){
+            this.sonido.reproducir("patinar.wav");
             JOptionPane.showMessageDialog(null, e.getMessage());
         }catch(VehiculoPatinandoFrenadoException e){
+            this.sonido.reproducir("patinar.wav");
             JOptionPane.showMessageDialog(null, e.getMessage()); 
         }catch(VehiculoRecuperarControlException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }finally {
-          this.txtVelocidadActual.setText(String.valueOf(this.taller.getVehiculo().getVelocidadActual()));
+            this.txtVelocidadActual.setText(String.valueOf(this.taller.getVehiculo().getVelocidadActual()));
         }
     }//GEN-LAST:event_btnFrenarMouseClicked
     /**
@@ -415,6 +474,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnApagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnApagarMouseClicked
         try{
             String apagar = this.taller.getVehiculo().apagar();
+            this.sonido.reproducir("apagar.wav");
             JOptionPane.showMessageDialog(null, apagar);
         }catch (VehiculoApagadoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -449,6 +509,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnVerConfiguracionActualMouseClicked
 
+    private void btnSalirVehiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirVehiculoMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_btnSalirVehiculoMouseClicked
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        
+    }//GEN-LAST:event_jLabel7MouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPTitulo;
     private javax.swing.JPanel btnAcelerar;
@@ -457,6 +525,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel btnFondoPantalla;
     private javax.swing.JPanel btnFrenar;
     private javax.swing.JPanel btnMostrarConfiguracionesPosibles;
+    private javax.swing.JPanel btnSalirVehiculo;
     private javax.swing.JPanel btnVerConfiguracionActual;
     private javax.swing.JLabel imagenVehiculo;
     private javax.swing.JLabel jLabel1;
@@ -464,6 +533,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel pantalla;
     private javax.swing.JLabel txtOf;

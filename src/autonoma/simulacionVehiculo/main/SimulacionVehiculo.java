@@ -5,6 +5,7 @@
 package autonoma.simulacionVehiculo.main;
 
 import autonoma.simulacionVehiculo.models.Lector;
+import autonoma.simulacionVehiculo.models.Sonido;
 import autonoma.simulacionVehiculo.models.Taller;
 import autonoma.simulacionVehiculo.models.Vehiculo;
 import autonoma.simulacionVehiculo.views.VentanaPrincipal;

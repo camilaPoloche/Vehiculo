@@ -11,7 +11,6 @@ package autonoma.simulacionVehiculo.exceptions;
  * @version 1.0
  */
 public class VehiculoAceleradoAltamenteException extends RuntimeException {
-    
     /**
     * Excepcion que se lanza al acelerar altamente un vehiculo
     */

@@ -10,11 +10,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-
 /**
- *
+ * Modelo que permite representar un taller
  * @author Camila
- */
+ * @since 20250405
+ * @version 1.0
+*/
 public class Taller {
     //Atributos
     /**
