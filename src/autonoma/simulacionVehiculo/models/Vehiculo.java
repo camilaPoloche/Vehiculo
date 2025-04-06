@@ -119,11 +119,11 @@ public class Vehiculo {
             throw new AcelerarFrenarVehiculoApagadoException();
         }
         
+        this.velocidadActual += aceleracion;
+        
         if (verificarBrusquedad(aceleracion)){
             return "ha acelerado bruscamente"; 
         }
-        
-        this.velocidadActual += aceleracion;
         
         if (this.velocidadActual > this.motor.getVelocidadMaxima()){
             this.accidentado = true;
@@ -165,5 +165,21 @@ public class Vehiculo {
         }
         
         return "Ha frenado el vehiculo";
+    }
+
+    /**
+     * Retorna la velocidadActual
+     * @return velocidadActual
+    */ 
+    public float getVelocidadActual() {
+        return velocidadActual;
+    }
+
+    /**
+     * Modifica la velocidadActual
+     * @param velocidadActual
+    */ 
+    public void setVelocidadActual(float velocidadActual) {
+        this.velocidadActual = velocidadActual;
     }
 }

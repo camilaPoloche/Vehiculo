@@ -17,11 +17,17 @@ import java.util.ArrayList;
  */
 public class Taller {
     private Lector lector;
-    Vehiculo vehiculo = null;
+    private Vehiculo vehiculo = null;
+
+    public Taller(Lector lector, Vehiculo vehiculo) {
+        this.lector = lector;
+        this.vehiculo = vehiculo;
+    }
     
-    public void configurarVehiculo() throws IOException {
+    public Vehiculo configurarVehiculo() throws IOException {
         ArrayList<String> configuracion = this.lector.leer("configuracionVehiculo.txt");
         this.vehiculo = this.convertirDatosConfiguracion(configuracion);
+        return this.vehiculo;
     }
     
     public float verificarLlantas (String llanta){
@@ -60,18 +66,35 @@ public class Taller {
     
     private Vehiculo convertirDatosConfiguracion(ArrayList<String> configuracion) {
         Vehiculo vehiculoNuevo = null;
-        for (String linea : configuracion) {
-            String llantasTipo = linea.split(";")[1];
-            String motorCilindraje = linea.split(";")[3];
-            
-            float velocidadMaxima = this.verificarMotor(motorCilindraje);
-            float limiteVelocidadPermitido = this.verificarLlantas(llantasTipo);  
-            
-            Motor motorNuevo = new Motor (motorCilindraje, velocidadMaxima);
-            Llanta llantaNueva = new Llanta (llantasTipo, limiteVelocidadPermitido);
+        String llantasTipo = "";
+        String motorCilindraje = "";
 
-            vehiculoNuevo = new Vehiculo(0, motorNuevo, llantaNueva);
+        for (String linea : configuracion) {
+            String[] partes = linea.split(";");
+
+            if (partes.length < 2) {
+                continue; 
+            }
+            
+            if (partes[0].equalsIgnoreCase("llantas")) {
+                llantasTipo = partes[1];
+            } else if (partes[0].equalsIgnoreCase("motor")) {
+                motorCilindraje = partes[1];
+            }
         }
+
+        float velocidadMaxima = this.verificarMotor(motorCilindraje);
+        float limiteVelocidadPermitido = this.verificarLlantas(llantasTipo);  
+
+        Motor motorNuevo = new Motor(motorCilindraje, velocidadMaxima);
+        Llanta llantaNueva = new Llanta(llantasTipo, limiteVelocidadPermitido);
+
+        vehiculoNuevo = new Vehiculo(0, motorNuevo, llantaNueva);
         return vehiculoNuevo;
     }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
 }
+
