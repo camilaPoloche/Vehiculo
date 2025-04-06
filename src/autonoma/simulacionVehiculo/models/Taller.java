@@ -16,20 +16,41 @@ import java.util.ArrayList;
  * @author Camila
  */
 public class Taller {
+    //Atributos
+    /**
+    * Instancia de Lector
+    */
     private Lector lector;
+    /**
+    * Instancia de Vehiculo
+    */
     private Vehiculo vehiculo;
 
+    /**
+     * Inicializa los atributos de la clase Taller
+     * @param lector
+    */
     public Taller(Lector lector) {
         this.lector = lector;
         this.vehiculo = null;
     }
     
+    /**
+     * Configurar el Vehiculo
+     * @throws IOException
+     * @retun vehiculo
+    */
     public Vehiculo configurarVehiculo() throws IOException {
         ArrayList<String> configuracion = this.lector.leer("configuracionVehiculo.txt");
         this.vehiculo = this.convertirDatosConfiguracion(configuracion);
         return this.vehiculo;
     }
     
+    /**
+     * Verifica el limiteVelocidad de las llantas segun el tipo
+     * @param llanta
+     * @retun float
+    */
     public float verificarLlantas (String llanta){
         if (llanta.equalsIgnoreCase("Bonitas")){
             return 70;
@@ -41,6 +62,11 @@ public class Taller {
         return 0;
     }
     
+    /**
+     * Verifica la velocidadMaxima del motor segun cc
+     * @param motor
+     * @retun float
+    */
     public float verificarMotor(String motor){
         if (motor.equals("3000")){
             return 220;
@@ -52,8 +78,12 @@ public class Taller {
         return 0;
     }
     
+    /**
+     * Lee el archivo y lo convierte en un arreglo String
+     * @param configuracion
+     * @retun vehiculo
+    */
     private Vehiculo convertirDatosConfiguracion(ArrayList<String> configuracion) {
-        Vehiculo vehiculoNuevo = null;
         String llantasTipo = "";
         String motorCilindraje = "";
 
@@ -78,13 +108,14 @@ public class Taller {
         Llanta llantaNueva = new Llanta(llantasTipo, limiteVelocidadPermitido);
 
         this.vehiculo = new Vehiculo(0, motorNuevo, llantaNueva);
-        return vehiculo;
+        return this.vehiculo;
     }
 
-    public void setVehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
-    }
     
+    /**
+     * Muestra las posibles configuraciones del vehiculo
+     * @return String
+    */
     public String mostrarPosiblesConfiguraciones() {
         StringBuilder configuracionMostrar = new StringBuilder();
         configuracionMostrar.append("       CONFIGURACIONES         \n");
@@ -102,6 +133,11 @@ public class Taller {
         return configuracionMostrar.toString();
     }
     
+    /**
+     * Muestra la configuracion actual del vehiculo
+     * @throws IOException
+     * @return String
+    */
     public String mostrarConfiguracionActual() throws IOException {
         ArrayList<String> configuracion = this.lector.leer("configuracionVehiculo.txt");
         StringBuilder configuracionMostrar = new StringBuilder();
@@ -135,8 +171,20 @@ public class Taller {
         return configuracionMostrar.toString();
     }  
 
+    /**
+     * Retorna el Vehiculo
+     * @return vehiculo
+    */
     public Vehiculo getVehiculo() {
         return vehiculo;
+    }
+    
+    /**
+     * Modifica el Vehiculo
+     * @param vehiculo
+    */
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
     }
 }
 

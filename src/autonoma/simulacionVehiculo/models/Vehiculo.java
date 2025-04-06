@@ -106,6 +106,8 @@ public class Vehiculo {
     /**
      * Acelera el vehiculo
      * @param aceleracion
+     * @throws AcelerarFrenarVehiculoApagadoException
+     * @throws VehiculoAceleradoAltamenteException
      * @return String
     */  
     public String acelerar (float aceleracion) throws AcelerarFrenarVehiculoApagadoException, VehiculoAceleradoAltamenteException{
@@ -132,6 +134,11 @@ public class Vehiculo {
     /**
      * Frena el vehiculo
      * @param frenado
+     * @throws AcelerarFrenarVehiculoApagadoException
+     * @throws FrenarVehiculoDetenidoException
+     * @throws VehiculoPatinandoFrenadoBruscamenteException
+     * @throws VehiculoPatinandoFrenadoException
+     * @throws VehiculoRecuperarControlException
      * @return String
     */  
     public String frenar(float frenado) throws AcelerarFrenarVehiculoApagadoException, FrenarVehiculoDetenidoException, VehiculoPatinandoFrenadoBruscamenteException, VehiculoPatinandoFrenadoException, VehiculoRecuperarControlException {
@@ -186,14 +193,26 @@ public class Vehiculo {
         this.velocidadActual = velocidadActual;
     }
 
+    /**
+     * Retorna el estado del vehiculo
+     * @return estado
+    */ 
     public boolean isEstado() {
         return estado;
     }
 
+    /**
+     * Retorna el estado de patinando
+     * @return patinando
+    */ 
     public boolean isPatinando() {
         return patinando;
     }
 
+    /**
+     * Retorna el estado de accidentado
+     * @return accidentado
+    */ 
     public boolean isAccidentado() {
         return accidentado;
     }

@@ -20,7 +20,7 @@ public class Motor {
     
     /**
      * velocidad maxima del motor
-     */
+    */
     private float velocidadMaxima;
     
     //constructor
@@ -29,7 +29,6 @@ public class Motor {
      *@param cilindraje
      *@param velocidadMaxima
      */
-
     public Motor(String cilindraje, float velocidadMaxima) {
         this.cilindraje = cilindraje;
         this.velocidadMaxima = velocidadMaxima;
@@ -63,14 +62,7 @@ public class Motor {
      * Modifica la velocidad maxima del motor
      * @param velocidadMaxima
     */ 
-
     public void setVelocidadMaxima(float velocidadMaxima) {
         this.velocidadMaxima = velocidadMaxima;
     }
-    
-    
-    
-    
-    
-    
 }

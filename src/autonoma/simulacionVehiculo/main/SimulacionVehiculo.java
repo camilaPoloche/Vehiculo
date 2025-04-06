@@ -14,18 +14,37 @@ import javax.swing.JOptionPane;
 /**
  * main
  * @author Camila
- * @since 20250329
+ * @since 20250405
  * @version 1.0
  */
 
 public class SimulacionVehiculo {
     public static void main(String[] args) {
+        //Atributos
+        /**
+        * Instancia de Lector
+        */
         Lector lector = new Lector();
+        /**
+        * Instancia de Vehiculo
+        */
         Vehiculo vehiculo = null;
+        /**
+        * Capturar IOException
+        */
         try {
+            /**
+            * Instancia de Taller
+            */
             Taller taller = new Taller(lector);
+            /**
+            * Instancia de Vehiculo
+            */
             vehiculo = taller.configurarVehiculo();
             taller.setVehiculo(vehiculo); 
+            /**
+            * Instancia de VentanaPrincipal
+            */
             VentanaPrincipal ventana = new VentanaPrincipal(taller);
             ventana.setVisible(true);
         } catch (IOException ex) {
