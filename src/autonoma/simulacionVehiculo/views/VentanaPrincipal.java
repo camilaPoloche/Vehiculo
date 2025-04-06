@@ -16,6 +16,7 @@ import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoRecuperarControlException;
 import autonoma.simulacionVehiculo.models.Taller;
 import autonoma.simulacionVehiculo.models.Vehiculo;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
@@ -53,6 +54,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnApagar = new javax.swing.JPanel();
         txtOf = new javax.swing.JLabel();
         txtVelocidadActual = new javax.swing.JLabel();
+        JPTitulo = new javax.swing.JPanel();
+        btnMostrarConfiguracionesPosibles = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        btnVerConfiguracionActual = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         imagenVehiculo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -94,6 +100,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         jLabel3.setText("Frenar");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnFrenarLayout = new javax.swing.GroupLayout(btnFrenar);
         btnFrenar.setLayout(btnFrenarLayout);
@@ -216,8 +227,82 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         panelPrincipal.add(btnFondoPantalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 410, 100, 100));
 
+        JPTitulo.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout JPTituloLayout = new javax.swing.GroupLayout(JPTitulo);
+        JPTitulo.setLayout(JPTituloLayout);
+        JPTituloLayout.setHorizontalGroup(
+            JPTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 580, Short.MAX_VALUE)
+        );
+        JPTituloLayout.setVerticalGroup(
+            JPTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        panelPrincipal.add(JPTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 580, -1));
+
+        btnMostrarConfiguracionesPosibles.setBackground(new java.awt.Color(255, 255, 255));
+        btnMostrarConfiguracionesPosibles.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMostrarConfiguracionesPosiblesMouseClicked(evt);
+            }
+        });
+
+        jLabel6.setText("Mostrar configuraciones");
+
+        javax.swing.GroupLayout btnMostrarConfiguracionesPosiblesLayout = new javax.swing.GroupLayout(btnMostrarConfiguracionesPosibles);
+        btnMostrarConfiguracionesPosibles.setLayout(btnMostrarConfiguracionesPosiblesLayout);
+        btnMostrarConfiguracionesPosiblesLayout.setHorizontalGroup(
+            btnMostrarConfiguracionesPosiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnMostrarConfiguracionesPosiblesLayout.createSequentialGroup()
+                .addGap(0, 14, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        btnMostrarConfiguracionesPosiblesLayout.setVerticalGroup(
+            btnMostrarConfiguracionesPosiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnMostrarConfiguracionesPosiblesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
+
+        panelPrincipal.add(btnMostrarConfiguracionesPosibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 300, 160, 30));
+
+        btnVerConfiguracionActual.setBackground(new java.awt.Color(255, 255, 255));
+        btnVerConfiguracionActual.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVerConfiguracionActualMouseClicked(evt);
+            }
+        });
+
+        jLabel5.setText("ver configuracion actual");
+
+        javax.swing.GroupLayout btnVerConfiguracionActualLayout = new javax.swing.GroupLayout(btnVerConfiguracionActual);
+        btnVerConfiguracionActual.setLayout(btnVerConfiguracionActualLayout);
+        btnVerConfiguracionActualLayout.setHorizontalGroup(
+            btnVerConfiguracionActualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnVerConfiguracionActualLayout.createSequentialGroup()
+                .addGap(0, 14, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        btnVerConfiguracionActualLayout.setVerticalGroup(
+            btnVerConfiguracionActualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnVerConfiguracionActualLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
+
+        panelPrincipal.add(btnVerConfiguracionActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 340, -1, 30));
+
         imagenVehiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/simulacionVehiculo/images/interiorVehiculo.png"))); // NOI18N
         imagenVehiculo.setText("jLabel1");
+        imagenVehiculo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenVehiculoMouseClicked(evt);
+            }
+        });
         panelPrincipal.add(imagenVehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 581, 664));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -294,16 +379,43 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnApagarMouseClicked
 
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void imagenVehiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenVehiculoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_imagenVehiculoMouseClicked
+
+    private void btnMostrarConfiguracionesPosiblesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMostrarConfiguracionesPosiblesMouseClicked
+
+            JOptionPane.showMessageDialog(null, this.taller.mostrarPosiblesConfiguraciones() );
+    }//GEN-LAST:event_btnMostrarConfiguracionesPosiblesMouseClicked
+
+    private void btnVerConfiguracionActualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerConfiguracionActualMouseClicked
+        
+        try {
+            JOptionPane.showMessageDialog(null, this.taller.mostrarConfiguracionActual());
+        }catch(IOException ex){
+            JOptionPane.showConfirmDialog(null, "Error al iniciar el programa, no se puede acceder al archivo configurarVehiculo.txt", "Error", JOptionPane.ERROR);
+        }
+    }//GEN-LAST:event_btnVerConfiguracionActualMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel JPTitulo;
     private javax.swing.JPanel btnAcelerar;
     private javax.swing.JPanel btnApagar;
     private javax.swing.JPanel btnEncender;
     private javax.swing.JPanel btnFondoPantalla;
     private javax.swing.JPanel btnFrenar;
+    private javax.swing.JPanel btnMostrarConfiguracionesPosibles;
+    private javax.swing.JPanel btnVerConfiguracionActual;
     private javax.swing.JLabel imagenVehiculo;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel pantalla;
     private javax.swing.JLabel txtOf;

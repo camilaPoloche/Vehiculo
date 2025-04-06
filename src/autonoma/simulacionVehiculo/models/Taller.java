@@ -96,5 +96,45 @@ public class Taller {
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
+    
+    public String mostrarPosiblesConfiguraciones() {
+        StringBuilder configuracionMostrar = new StringBuilder();
+       
+        configuracionMostrar.append("       CONFIGURACIONES         \n");
+        
+
+        
+        configuracionMostrar.append("Configuracion llantas: \n");
+        configuracionMostrar.append("buenas - 110 Km/h \n");
+        configuracionMostrar.append("bonitas - 70 Km/h \n");
+        configuracionMostrar.append("baratas - 50 Km/h \n");
+
+        configuracionMostrar.append("configuración motor (cilindraje): \n");
+        configuracionMostrar.append("1000 cc - 100 Km/h \n");
+        configuracionMostrar.append("2000 cc - 160 Km/h \n");
+        configuracionMostrar.append("3000 cc - 220 Km/h \n");
+
+        
+
+        return configuracionMostrar.toString();
+    }
+    
+    public String mostrarConfiguracionActual() throws IOException {
+        ArrayList<String> configuracion = this.lector.leer("configuracionVehiculo.txt");
+        StringBuilder configuracionMostrar = new StringBuilder();
+       
+        configuracionMostrar.append("       CONFIGURACIONES ELEGIDAS         \n");
+       
+        configuracionMostrar.append("Configuracion llantas: \n");
+        configuracionMostrar.append("bonitas - 70 Km/h \n");
+    
+
+        configuracionMostrar.append("configuración motor (cilindraje): \n");
+        configuracionMostrar.append("3000 cc - 220 Km/h \n");
+
+        return configuracionMostrar.toString();
+    }
 }
+
+
 
