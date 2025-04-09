@@ -5,6 +5,8 @@
 package autonoma.simulacionVehiculo.main;
 
 import autonoma.simulacionVehiculo.models.Lector;
+import autonoma.simulacionVehiculo.models.LectorArchivoTextoPlano;
+import autonoma.simulacionVehiculo.models.Simulador;
 import autonoma.simulacionVehiculo.models.Sonido;
 import autonoma.simulacionVehiculo.models.Taller;
 import autonoma.simulacionVehiculo.models.Vehiculo;
@@ -25,11 +27,12 @@ public class SimulacionVehiculo {
         /**
         * Instancia de Lector
         */
-        Lector lector = new Lector();
+        LectorArchivoTextoPlano lector = new LectorArchivoTextoPlano();
         /**
         * Instancia de Vehiculo
         */
         Vehiculo vehiculo = null;
+       
         /**
         * Capturar IOException
         */
@@ -44,9 +47,13 @@ public class SimulacionVehiculo {
             vehiculo = taller.configurarVehiculo();
             taller.setVehiculo(vehiculo); 
             /**
+            * Instancia de Simulador
+            */
+            Simulador simulador = new Simulador (taller);
+            /**
             * Instancia de VentanaPrincipal
             */
-            VentanaPrincipal ventana = new VentanaPrincipal(taller);
+            VentanaPrincipal ventana = new VentanaPrincipal(simulador);
             ventana.setVisible(true);
         } catch (IOException ex) {
             System.out.println("No encontramos el archivo");

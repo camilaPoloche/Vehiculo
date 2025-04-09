@@ -13,9 +13,8 @@ import autonoma.simulacionVehiculo.exceptions.VehiculoEncendidoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoBruscamenteException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoRecuperarControlException;
+import autonoma.simulacionVehiculo.models.Simulador;
 import autonoma.simulacionVehiculo.models.Sonido;
-import autonoma.simulacionVehiculo.models.Taller;
-import autonoma.simulacionVehiculo.models.Vehiculo;
 import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -28,9 +27,9 @@ import javax.swing.JOptionPane;
 public class VentanaPrincipal extends javax.swing.JFrame {
     //Atributos
     /**
-    * Instancia de taller
+    * Instancia de Simulador
     */
-    Taller taller;
+    Simulador simulador;
     /**
     * Instancia de ventanaEncendido
     */
@@ -46,10 +45,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     /**
      * Inicializa los atributos de la VentanaPrincipal
-     * @param taller
+     * @param simulador
     */
-    public VentanaPrincipal(Taller taller) {
-        this.taller = taller;
+    public VentanaPrincipal(Simulador simulador) {
+        this.simulador = simulador;
         this.sonido = new Sonido();
         initComponents();
         this.setLocationRelativeTo(null);
@@ -89,6 +88,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         btnSalirVehiculo = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
+        btnCambiarConfiguracion = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
         imagenVehiculo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -370,6 +371,34 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         panelPrincipal.add(btnSalirVehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 610, 130, -1));
 
+        btnCambiarConfiguracion.setBackground(new java.awt.Color(204, 204, 204));
+        btnCambiarConfiguracion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCambiarConfiguracionMouseClicked(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("SimSun", 1, 12)); // NOI18N
+        jLabel8.setText("Cambiar configuracion");
+
+        javax.swing.GroupLayout btnCambiarConfiguracionLayout = new javax.swing.GroupLayout(btnCambiarConfiguracion);
+        btnCambiarConfiguracion.setLayout(btnCambiarConfiguracionLayout);
+        btnCambiarConfiguracionLayout.setHorizontalGroup(
+            btnCambiarConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnCambiarConfiguracionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
+        );
+        btnCambiarConfiguracionLayout.setVerticalGroup(
+            btnCambiarConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnCambiarConfiguracionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(9, Short.MAX_VALUE))
+        );
+
+        panelPrincipal.add(btnCambiarConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 260, -1, -1));
+
         imagenVehiculo.setBackground(new java.awt.Color(255, 202, 202));
         imagenVehiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/simulacionVehiculo/images/interiorVehiculo.png"))); // NOI18N
         imagenVehiculo.setText("jLabel1");
@@ -398,7 +427,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     */
     private void btnEncenderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEncenderMouseClicked
         try{
-            String encender = this.taller.getVehiculo().encender();
+            String encender = this.simulador.encenderVehiculo();
             this.encender = new Encender(this, true);
             this.sonido.reproducir("encender.wav");
             this.encender.setVisible(true);
@@ -473,7 +502,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     */
     private void btnApagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnApagarMouseClicked
         try{
-            String apagar = this.taller.getVehiculo().apagar();
+            String apagar = this.simulador.apagarVehiculo();
             this.sonido.reproducir("apagar.wav");
             JOptionPane.showMessageDialog(null, apagar);
         }catch (VehiculoApagadoException e){
@@ -481,7 +510,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }catch (VehiculoAccidentadoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }finally{
-            this.txtVelocidadActual.setText(String.valueOf(this.taller.getVehiculo().getVelocidadActual()));
+            this.txtVelocidadActual.setText(String.valueOf(this.simulador.getVehiculo().getVelocidadActual()));
         }
     }//GEN-LAST:event_btnApagarMouseClicked
 
@@ -496,14 +525,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * Mostrar las posibles configuraciones del vehiculo
     */
     private void btnMostrarConfiguracionesPosiblesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMostrarConfiguracionesPosiblesMouseClicked
-        JOptionPane.showMessageDialog(null, this.taller.mostrarPosiblesConfiguraciones() );
+        JOptionPane.showMessageDialog(null, this.simulador.getTaller().mostrarPosiblesConfiguraciones() );
     }//GEN-LAST:event_btnMostrarConfiguracionesPosiblesMouseClicked
     /**
      * Mostrar la configuracion actual
     */
     private void btnVerConfiguracionActualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerConfiguracionActualMouseClicked
         try {
-            JOptionPane.showMessageDialog(null, this.taller.mostrarConfiguracionActual());
+            JOptionPane.showMessageDialog(null, this.simulador.getTaller().mostrarConfiguracionActual());
         }catch(IOException ex){
             JOptionPane.showConfirmDialog(null, "Error al iniciar el programa, no se puede acceder al archivo configurarVehiculo.txt", "Error", JOptionPane.ERROR);
         }
@@ -517,10 +546,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jLabel7MouseClicked
 
+    private void btnCambiarConfiguracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCambiarConfiguracionMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCambiarConfiguracionMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPTitulo;
     private javax.swing.JPanel btnAcelerar;
     private javax.swing.JPanel btnApagar;
+    private javax.swing.JPanel btnCambiarConfiguracion;
     private javax.swing.JPanel btnEncender;
     private javax.swing.JPanel btnFondoPantalla;
     private javax.swing.JPanel btnFrenar;
@@ -534,6 +568,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel pantalla;
     private javax.swing.JLabel txtOf;

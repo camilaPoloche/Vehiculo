@@ -4,6 +4,11 @@
  */
 package autonoma.simulacionVehiculo.models;
 
+import autonoma.simulacionVehiculo.exceptions.AcelerarFrenarVehiculoApagadoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoAceleradoAltamenteException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoApagadoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoEncendidoException;
+
 /**
  * Modelo que permite representar un motor
  * @author Mariana
@@ -17,13 +22,16 @@ public class Motor {
      * cilindraje del motor
      */
     private String cilindraje;
-    
     /**
      * velocidad maxima del motor
     */
     private float velocidadMaxima;
+    /**
+     * Estado del moto
+    */
+    private boolean estado;
     
-    //constructor
+    //Constructor
      /**
      * Inicializa los atributos de la clase motor
      *@param cilindraje
@@ -33,7 +41,9 @@ public class Motor {
         this.cilindraje = cilindraje;
         this.velocidadMaxima = velocidadMaxima;
     }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Métodos de acceso
+    
     /**
      * Retorna el cilindraje del motor
      * @return cilindraje
@@ -64,5 +74,67 @@ public class Motor {
     */ 
     public void setVelocidadMaxima(float velocidadMaxima) {
         this.velocidadMaxima = velocidadMaxima;
+    }
+    
+    /**
+     * Retorna el estado del motor
+     * @return estado
+    */ 
+    public boolean isEstado() {
+        return estado;
+    }
+    /**
+     * Modifica el estado del motor
+     * @param estado
+    */ 
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Métodos
+    
+    /**
+     * Enciende el motor
+     * @return String
+    */  
+    public String encender () throws VehiculoEncendidoException{
+        if (this.estado == true){
+            throw new VehiculoEncendidoException();
+        }
+        this.estado = true;
+        return "Se ha encendido el vehiculo";
+    }
+    
+    /**
+     * Apaga el motor
+     * @return String
+    */  
+    public String apagar () throws VehiculoApagadoException, AcelerarFrenarVehiculoApagadoException{
+        if (this.estado == false){
+            throw new VehiculoApagadoException();
+        }
+        
+        this.estado = false;
+        return "Se ha apagado el vehiculo";
+    }
+    
+    /**
+     * Valida si se supera la velocidadMaxima
+     * @param velocidad
+    */ 
+    public void validarVelocidadMaxima (float velocidad) throws VehiculoAceleradoAltamenteException{
+        if (velocidad>this.velocidadMaxima){
+            throw new VehiculoAceleradoAltamenteException();
+        }
+    }
+    
+    /**
+     * Valida el estado del motor
+    */ 
+    public void validarEstado() throws AcelerarFrenarVehiculoApagadoException{
+        if (this.estado == false){
+            throw new AcelerarFrenarVehiculoApagadoException();
+        }
     }
 }

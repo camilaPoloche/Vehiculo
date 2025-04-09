@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package autonoma.simulacionVehiculo.models;
+
+import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoBruscamenteException;
+
 /**
  * Modelo que permite representar una Llanta
  * @author Camila
@@ -61,4 +64,15 @@ public class Llanta {
     public void setLimitePermitido(float limiteVelocidadPermitido) {
         this.limiteVelocidadPermitido = limiteVelocidadPermitido;
     } 
+    
+    /**
+     * Verifica si se supera el limiteVelocidadPermitido
+     * @param velocidad
+    */
+    public void verificarLimiteVelocidad (float velocidad) throws VehiculoPatinandoFrenadoBruscamenteException{
+        if (velocidad > this.limiteVelocidadPermitido){
+            throw new VehiculoPatinandoFrenadoBruscamenteException();
+        }
+    }
 }
+

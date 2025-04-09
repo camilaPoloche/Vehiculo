@@ -21,7 +21,7 @@ public class Taller {
     /**
     * Instancia de Lector
     */
-    private Lector lector;
+    private LectorArchivoTextoPlano lector;
     /**
     * Instancia de Vehiculo
     */
@@ -31,7 +31,7 @@ public class Taller {
      * Inicializa los atributos de la clase Taller
      * @param lector
     */
-    public Taller(Lector lector) {
+    public Taller(LectorArchivoTextoPlano lector) {
         this.lector = lector;
         this.vehiculo = null;
     }
