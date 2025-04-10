@@ -451,8 +451,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             String mensaje = this.simulador.acelerarVehiculo(aceleracion);
             JOptionPane.showMessageDialog(null, mensaje);  
         }catch (AcelerarFrenarVehiculoApagadoException e){
-//            this.simulador.getVehiculo().getMotor().setEstado(false);
-//            this.simulador.getVehiculo().setVelocidadActual(0);
+            this.simulador.getVehiculo().setVelocidadActual(0);
             JOptionPane.showMessageDialog(null, e.getMessage());   
         }catch (VehiculoAceleradoAltamenteException e){
             this.accidente = new Accidente (this, true);
@@ -511,6 +510,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }catch (VehiculoApagadoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }catch (VehiculoAccidentadoException e){
+            this.accidente = new Accidente (this, true);
+            this.accidente.setVisible(true);
             JOptionPane.showMessageDialog(null, e.getMessage());
         }finally{
             this.txtVelocidadActual.setText(String.valueOf(this.simulador.getVehiculo().getVelocidadActual()));
@@ -540,7 +541,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             JOptionPane.showConfirmDialog(null, "Error al iniciar el programa, no se puede acceder al archivo configurarVehiculo.txt", "Error", JOptionPane.ERROR);
         }
     }//GEN-LAST:event_btnVerConfiguracionActualMouseClicked
-
+    /**
+     * Salir de la interfaz
+    */
     private void btnSalirVehiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirVehiculoMouseClicked
         this.dispose();
     }//GEN-LAST:event_btnSalirVehiculoMouseClicked
@@ -548,7 +551,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         
     }//GEN-LAST:event_jLabel7MouseClicked
-
+    /**
+     * Cambiar la configuracion actual por una nueva
+    */
     private void btnCambiarConfiguracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCambiarConfiguracionMouseClicked
       
         String configuracionLlanta = JOptionPane.showInputDialog(null, "Ingrese la nueva configuracion para sus llantas: ");
@@ -556,7 +561,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         try{
             this.simulador.getTaller().cambiarConfiguracionVehiculo(configuracionLlanta, configuracionMotor);
-            JOptionPane.showMessageDialog(null, "ha cambiado la configuracion del vehiculo", "ADVERTENCIA", HEIGHT);
+            JOptionPane.showMessageDialog(null, "Ha cambiado la configuracion del vehiculo", "ADVERTENCIA", HEIGHT);
             
         }catch(IOException e){
             JOptionPane.showConfirmDialog(null, "Error al iniciar el programa, no se puede acceder al archivo configurarVehiculo.txt", "Error", JOptionPane.ERROR);

@@ -200,8 +200,6 @@ public class Taller {
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
-    
-    
 }
 
 

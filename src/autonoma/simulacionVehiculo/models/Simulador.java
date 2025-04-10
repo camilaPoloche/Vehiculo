@@ -62,7 +62,8 @@ public class Simulador {
         } catch (VehiculoApagadoException e){
             throw e;
         } catch (AcelerarFrenarVehiculoApagadoException e){
-            throw new AcelerarFrenarVehiculoApagadoException();
+            this.vehiculo.accidentar();
+            throw e;
         }
     }
     
@@ -77,9 +78,9 @@ public class Simulador {
         } catch(AcelerarFrenarVehiculoApagadoException e){
             throw e;
         } catch(VehiculoAceleradoAltamenteException e){
-            this.vehiculo.getMotor().validarVelocidadMaxima(this.vehiculo.getVelocidadActual());
+            this.vehiculo.accidentar();
+            throw e;
         }
-        return "";
     }
     
     /**
@@ -87,21 +88,19 @@ public class Simulador {
     * @param frenado
     * @return string
     */
-    public String frenarVehiculo (float frenado){
+    public String frenarVehiculo (float frenado)throws VehiculoPatinandoFrenadoBruscamenteException, VehiculoPatinandoFrenadoException, VehiculoRecuperarControlException{
         try{
             return this.vehiculo.frenar(frenado);
         } catch (VehiculoPatinandoFrenadoBruscamenteException e) {
-            if (this.vehiculo.verificarBrusquedad(frenado)){
-                this.vehiculo.patinar(frenado);
-            }
+            this.vehiculo.patinar(frenado);
+            throw e;
         } catch (VehiculoPatinandoFrenadoException e){
             this.vehiculo.patinar(frenado);
+            throw e;
         } catch (VehiculoRecuperarControlException e){
-            if (this.vehiculo.isPatinando() == true && this.vehiculo.getVelocidadActual() == 0){
-                this.vehiculo.recuperarControl();
-            }
+            this.vehiculo.recuperarControl();
+            throw e;
         }
-        return "";
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

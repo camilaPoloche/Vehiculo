@@ -1,2 +1,2 @@
-llantas;null
-motor;null
+llantas;Bonitas
+motor;2000

@@ -114,8 +114,6 @@ public class Motor {
         if (this.estado == false){
             throw new VehiculoApagadoException();
         }
-        
-        this.estado = false;
         return "Se ha apagado el vehiculo";
     }
     
@@ -123,12 +121,11 @@ public class Motor {
      * Valida si se supera la velocidadMaxima
      * @param velocidad
     */ 
-    public boolean validarVelocidadMaxima (float velocidad) throws VehiculoAceleradoAltamenteException{
+    public void validarVelocidadMaxima (float velocidad) throws VehiculoAceleradoAltamenteException{
         if (velocidad>this.velocidadMaxima){
             this.setEstado(false);
             throw new VehiculoAceleradoAltamenteException();
         }
-        return false;
     }
     
     /**
