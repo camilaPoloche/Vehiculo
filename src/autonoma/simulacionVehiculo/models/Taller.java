@@ -26,6 +26,8 @@ public class Taller {
     * Instancia de Vehiculo
     */
     private Vehiculo vehiculo;
+    
+    private EscritorArchivoTextoPlano escritor;
 
     /**
      * Inicializa los atributos de la clase Taller
@@ -171,6 +173,17 @@ public class Taller {
      
         return configuracionMostrar.toString();
     }  
+    
+    public void cambiarConfiguracionVehiculo(String nuevoTipoLlanta, String nuevoCilindrajeMotor) throws IOException {
+        
+        ArrayList<String> nuevaConfiguracion = new ArrayList<>();
+        nuevaConfiguracion.add("llantas;" + nuevoTipoLlanta);
+        nuevaConfiguracion.add("motor;" + nuevoCilindrajeMotor);
+
+        escritor = new EscritorArchivoTextoPlano("configuracionVehiculo.txt");
+        escritor.escribir(nuevaConfiguracion);
+    }
+
 
     /**
      * Retorna el Vehiculo
@@ -187,6 +200,8 @@ public class Taller {
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
+    
+    
 }
 
 

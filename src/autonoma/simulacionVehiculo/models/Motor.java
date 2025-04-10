@@ -123,10 +123,12 @@ public class Motor {
      * Valida si se supera la velocidadMaxima
      * @param velocidad
     */ 
-    public void validarVelocidadMaxima (float velocidad) throws VehiculoAceleradoAltamenteException{
+    public boolean validarVelocidadMaxima (float velocidad) throws VehiculoAceleradoAltamenteException{
         if (velocidad>this.velocidadMaxima){
+            this.setEstado(false);
             throw new VehiculoAceleradoAltamenteException();
         }
+        return false;
     }
     
     /**

@@ -3,6 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package autonoma.simulacionVehiculo.models;
+
+import autonoma.simulacionVehiculo.exceptions.AcelerarFrenarVehiculoApagadoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoAceleradoAltamenteException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoApagadoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoEncendidoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoBruscamenteException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoException;
+import autonoma.simulacionVehiculo.exceptions.VehiculoRecuperarControlException;
+
 /**
  * Modelo que permite representar la VentanaPrincipal
  * @author Mariana - Camila
@@ -35,16 +44,26 @@ public class Simulador {
     * Encender el vehiculo
     * @return string
     */
-    public String encenderVehiculo(){
-        return this.vehiculo.encender();
+    public String encenderVehiculo() throws VehiculoEncendidoException{
+        try{
+            return this.vehiculo.encender();
+        } catch (VehiculoEncendidoException e){
+            throw e;
+        }
     }
     
     /**
     * Apagar el vehiculo
     * @return string
     */
-    public String apagarVehiculo(){
-        return this.vehiculo.apagar();
+    public String apagarVehiculo() throws VehiculoApagadoException, AcelerarFrenarVehiculoApagadoException{
+        try{
+            return this.vehiculo.apagar();
+        } catch (VehiculoApagadoException e){
+            throw e;
+        } catch (AcelerarFrenarVehiculoApagadoException e){
+            throw new AcelerarFrenarVehiculoApagadoException();
+        }
     }
     
     /**
@@ -52,8 +71,15 @@ public class Simulador {
     * @param velocidad
     * @return string
     */
-    public String acelerarVehiculo (float velocidad){
-        return this.vehiculo.acelerar(velocidad);
+    public String acelerarVehiculo (float velocidad) throws AcelerarFrenarVehiculoApagadoException, VehiculoAceleradoAltamenteException{
+        try{
+            return this.vehiculo.acelerar(velocidad);
+        } catch(AcelerarFrenarVehiculoApagadoException e){
+            throw e;
+        } catch(VehiculoAceleradoAltamenteException e){
+            this.vehiculo.getMotor().validarVelocidadMaxima(this.vehiculo.getVelocidadActual());
+        }
+        return "";
     }
     
     /**
@@ -62,7 +88,20 @@ public class Simulador {
     * @return string
     */
     public String frenarVehiculo (float frenado){
-        return this.vehiculo.frenar(frenado);
+        try{
+            return this.vehiculo.frenar(frenado);
+        } catch (VehiculoPatinandoFrenadoBruscamenteException e) {
+            if (this.vehiculo.verificarBrusquedad(frenado)){
+                this.vehiculo.patinar(frenado);
+            }
+        } catch (VehiculoPatinandoFrenadoException e){
+            this.vehiculo.patinar(frenado);
+        } catch (VehiculoRecuperarControlException e){
+            if (this.vehiculo.isPatinando() == true && this.vehiculo.getVelocidadActual() == 0){
+                this.vehiculo.recuperarControl();
+            }
+        }
+        return "";
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

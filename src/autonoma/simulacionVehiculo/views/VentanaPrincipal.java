@@ -307,7 +307,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        panelPrincipal.add(btnMostrarConfiguracionesPosibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, 180, 30));
+        panelPrincipal.add(btnMostrarConfiguracionesPosibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 290, 180, 30));
 
         btnVerConfiguracionActual.setBackground(new java.awt.Color(204, 204, 204));
         btnVerConfiguracionActual.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -332,10 +332,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(btnVerConfiguracionActualLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        panelPrincipal.add(btnVerConfiguracionActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, 180, 30));
+        panelPrincipal.add(btnVerConfiguracionActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 350, 180, 30));
 
         btnSalirVehiculo.setBackground(new java.awt.Color(152, 212, 252));
         btnSalirVehiculo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -385,9 +385,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnCambiarConfiguracion.setLayout(btnCambiarConfiguracionLayout);
         btnCambiarConfiguracionLayout.setHorizontalGroup(
             btnCambiarConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCambiarConfiguracionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnCambiarConfiguracionLayout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         btnCambiarConfiguracionLayout.setVerticalGroup(
             btnCambiarConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,7 +398,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        panelPrincipal.add(btnCambiarConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 260, -1, -1));
+        panelPrincipal.add(btnCambiarConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 230, -1, 30));
 
         imagenVehiculo.setBackground(new java.awt.Color(255, 202, 202));
         imagenVehiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/simulacionVehiculo/images/interiorVehiculo.png"))); // NOI18N
@@ -441,22 +442,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     */
     private void btnAcelerarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMouseClicked
         try{
-            if (this.taller.getVehiculo().isEstado() == false){
+            if (this.simulador.getVehiculo().getMotor().isEstado() == false){
                 throw new AcelerarFrenarVehiculoApagadoException();
             }
             String aceleracionEntrada = JOptionPane.showInputDialog(null, "Ingrese cuanto desea acelera: ");
             float aceleracion = Float.parseFloat(aceleracionEntrada);
             this.sonido.reproducir("acelerar.wav");
-            String mensaje = this.taller.getVehiculo().acelerar(aceleracion);
+            String mensaje = this.simulador.acelerarVehiculo(aceleracion);
             JOptionPane.showMessageDialog(null, mensaje);  
         }catch (AcelerarFrenarVehiculoApagadoException e){
+//            this.simulador.getVehiculo().getMotor().setEstado(false);
+//            this.simulador.getVehiculo().setVelocidadActual(0);
             JOptionPane.showMessageDialog(null, e.getMessage());   
         }catch (VehiculoAceleradoAltamenteException e){
             this.accidente = new Accidente (this, true);
             this.accidente.setVisible(true);
             JOptionPane.showMessageDialog(null, e.getMessage());
         }finally {
-            this.txtVelocidadActual.setText(String.valueOf(this.taller.getVehiculo().getVelocidadActual()));
+            this.txtVelocidadActual.setText(String.valueOf(this.simulador.getVehiculo().getVelocidadActual()));
         }
     }//GEN-LAST:event_btnAcelerarMouseClicked
 
@@ -468,18 +471,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     */
     private void btnFrenarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenarMouseClicked
         try{
-            if (this.taller.getVehiculo().isEstado() == false){
+            if (this.simulador.getVehiculo().getMotor().isEstado() == false){
                 throw new AcelerarFrenarVehiculoApagadoException();
             }
             
-            if(this.taller.getVehiculo().getVelocidadActual() == 0){
+            if(this.simulador.getVehiculo().getVelocidadActual() == 0){
                 throw new FrenarVehiculoDetenidoException();
             }
             
             String frenadoEntrada = JOptionPane.showInputDialog(null, "Ingrese cuanto desea frenar: ");
             float frenado = Float.parseFloat(frenadoEntrada);
             this.sonido.reproducir("frenar.wav");
-            String mensaje = this.taller.getVehiculo().frenar(frenado);
+            String mensaje = this.simulador.frenarVehiculo(frenado);
             JOptionPane.showMessageDialog(null, mensaje); 
         }catch(AcelerarFrenarVehiculoApagadoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -494,7 +497,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }catch(VehiculoRecuperarControlException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }finally {
-            this.txtVelocidadActual.setText(String.valueOf(this.taller.getVehiculo().getVelocidadActual()));
+            this.txtVelocidadActual.setText(String.valueOf(this.simulador.getVehiculo().getVelocidadActual()));
         }
     }//GEN-LAST:event_btnFrenarMouseClicked
     /**
@@ -547,7 +550,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void btnCambiarConfiguracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCambiarConfiguracionMouseClicked
-        // TODO add your handling code here:
+      
+        String configuracionLlanta = JOptionPane.showInputDialog(null, "Ingrese la nueva configuracion para sus llantas: ");
+        String configuracionMotor = JOptionPane.showInputDialog(null, "Ingrese la nueva configuracion para su motor: ");
+        
+        try{
+            this.simulador.getTaller().cambiarConfiguracionVehiculo(configuracionLlanta, configuracionMotor);
+            JOptionPane.showMessageDialog(null, "ha cambiado la configuracion del vehiculo", "ADVERTENCIA", HEIGHT);
+            
+        }catch(IOException e){
+            JOptionPane.showConfirmDialog(null, "Error al iniciar el programa, no se puede acceder al archivo configurarVehiculo.txt", "Error", JOptionPane.ERROR);
+        }
     }//GEN-LAST:event_btnCambiarConfiguracionMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
