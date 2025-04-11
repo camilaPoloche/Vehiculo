@@ -12,7 +12,6 @@ import autonoma.simulacionVehiculo.exceptions.VehiculoApagadoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoEncendidoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoBruscamenteException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoException;
-import autonoma.simulacionVehiculo.exceptions.VehiculoRecuperarControlException;
 import autonoma.simulacionVehiculo.models.Simulador;
 import autonoma.simulacionVehiculo.models.Sonido;
 import java.io.IOException;

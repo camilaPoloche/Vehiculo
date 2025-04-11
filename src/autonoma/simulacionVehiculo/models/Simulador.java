@@ -10,7 +10,6 @@ import autonoma.simulacionVehiculo.exceptions.VehiculoApagadoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoEncendidoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoBruscamenteException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoException;
-import autonoma.simulacionVehiculo.exceptions.VehiculoRecuperarControlException;
 
 /**
  * Modelo que permite representar la VentanaPrincipal

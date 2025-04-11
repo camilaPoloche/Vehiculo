@@ -12,7 +12,6 @@ import autonoma.simulacionVehiculo.exceptions.VehiculoApagadoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoEncendidoException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoBruscamenteException;
 import autonoma.simulacionVehiculo.exceptions.VehiculoPatinandoFrenadoException;
-import autonoma.simulacionVehiculo.exceptions.VehiculoRecuperarControlException;
 
 /**
  * Modelo que permite representar un Vehiculo
@@ -120,7 +119,7 @@ public class Vehiculo {
      * @throws VehiculoRecuperarControlException
      * @return String
     */  
-    public String frenar(float frenado) throws AcelerarFrenarVehiculoApagadoException, FrenarVehiculoDetenidoException, VehiculoPatinandoFrenadoBruscamenteException, VehiculoPatinandoFrenadoException, VehiculoRecuperarControlException {
+    public String frenar(float frenado) throws AcelerarFrenarVehiculoApagadoException, FrenarVehiculoDetenidoException, VehiculoPatinandoFrenadoBruscamenteException, VehiculoPatinandoFrenadoException{
         this.motor.validarEstado();
         this.verificarVelocidadActual();
         
