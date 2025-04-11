@@ -83,9 +83,10 @@ public class Vehiculo {
     */ 
     public String apagar() throws VehiculoApagadoException, AcelerarFrenarVehiculoApagadoException, VehiculoAccidentadoException{
         if (this.motor.isEstado() && this.velocidadActual > 60){
+            this.setVelocidadActual(0);
+            this.motor.setEstado(false);
             throw new VehiculoAccidentadoException();
         }
-        this.setVelocidadActual(0);
         return this.motor.apagar();
     }
     
@@ -157,16 +158,7 @@ public class Vehiculo {
         this.setVelocidadActual(0);
         this.getMotor().validarVelocidadMaxima(this.getVelocidadActual());
     }
-    
-    /**
-     * Recupera el control del vehiculo
-     * @throws VehiculoRecuperarControlException
-    */
-    public void recuperarControl () throws VehiculoRecuperarControlException{
-        this.velocidadActual = 0;
-        throw new VehiculoRecuperarControlException();
-    }
-    
+ 
     /**
      * Patina el vehiculo
      * @param  frenado
@@ -174,7 +166,6 @@ public class Vehiculo {
     */  
     public void patinar(float frenado){
         this.patinando = true;
-        this.motor.setEstado(false);
         this.setVelocidadActual(0);
     }
 

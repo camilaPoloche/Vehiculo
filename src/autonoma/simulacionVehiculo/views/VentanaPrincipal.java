@@ -490,11 +490,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }catch(VehiculoPatinandoFrenadoBruscamenteException e){
             this.sonido.reproducir("patinar.wav");
             JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "El vehiculo se detuvo, ha recuperado el control"); 
         }catch(VehiculoPatinandoFrenadoException e){
             this.sonido.reproducir("patinar.wav");
             JOptionPane.showMessageDialog(null, e.getMessage()); 
-        }catch(VehiculoRecuperarControlException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "El vehiculo se detuvo, ha recuperado el control"); 
         }finally {
             this.txtVelocidadActual.setText(String.valueOf(this.simulador.getVehiculo().getVelocidadActual()));
         }

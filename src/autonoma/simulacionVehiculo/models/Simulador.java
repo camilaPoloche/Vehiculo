@@ -88,7 +88,7 @@ public class Simulador {
     * @param frenado
     * @return string
     */
-    public String frenarVehiculo (float frenado)throws VehiculoPatinandoFrenadoBruscamenteException, VehiculoPatinandoFrenadoException, VehiculoRecuperarControlException{
+    public String frenarVehiculo (float frenado)throws VehiculoPatinandoFrenadoBruscamenteException, VehiculoPatinandoFrenadoException{
         try{
             return this.vehiculo.frenar(frenado);
         } catch (VehiculoPatinandoFrenadoBruscamenteException e) {
@@ -96,9 +96,6 @@ public class Simulador {
             throw e;
         } catch (VehiculoPatinandoFrenadoException e){
             this.vehiculo.patinar(frenado);
-            throw e;
-        } catch (VehiculoRecuperarControlException e){
-            this.vehiculo.recuperarControl();
             throw e;
         }
     }
