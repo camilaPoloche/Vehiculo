@@ -99,12 +99,12 @@ public class Vehiculo {
     public String acelerar (float aceleracion) throws AcelerarFrenarVehiculoApagadoException, VehiculoAceleradoAltamenteException{
         this.velocidadActual += aceleracion;
         
-        this.getMotor().validarEstado();
-        this.getMotor().validarVelocidadMaxima(velocidadActual);
+            this.getMotor().validarEstado();
+            this.getMotor().validarVelocidadMaxima(velocidadActual);
         
-        if (verificarBrusquedad(aceleracion)){
+            if (verificarBrusquedad(aceleracion)){
             return "Ha acelerado bruscamente"; 
-        }
+            }
        
         return "Ha acelerado el vehiculo";
     }

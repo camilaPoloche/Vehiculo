@@ -114,6 +114,7 @@ public class Motor {
         if (this.estado == false){
             throw new VehiculoApagadoException();
         }
+        this.estado = false;
         return "Se ha apagado el vehiculo";
     }
     

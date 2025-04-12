@@ -1,2 +1,2 @@
-llantas;Bonitas
+llantas;buenas
 motor;2000
